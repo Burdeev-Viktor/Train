@@ -22,6 +22,8 @@ public class Train {
 
     private String ensdad;
 
+    private String ensda55d;
+
     @Column(name = "seat_buy")
     private int seat_buy;
 
