@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create train</title>
+</head>
+<body>
+<form action="#" th:action="@{/train-create}" th:object="${train}" method="post">
+    <label for = "start">Посадка</label>
+    <input type="text" th:field="*{start}" id ="start" placeholder="">
+    <br>
+    <label for = "end">Высодка</label>
+    <input type="text" th:field="*{end}" id ="end" placeholder="">
+    <br>
+    <label for = "seat_buy">Куплино билетов</label>
+    <input type="number" th:field="*{seat_buy}" id ="seat_buy" placeholder="">
+    <br>
+    <label for = "seat_all">Всего билетов</label>
+    <input type="number" th:field="*{seat_all}" id ="seat_all" placeholder="">
+    <br>
+    <label for = "price">Стоймость</label>
+    <input type="number" th:field="*{price}" id ="price" placeholder="">
+    <br>
+    <label for="timeStart">Время отбытия</label>
+    <input type="time" th:field = "*{timeStart}" id="timeStart" placeholder="">
+    <br>
+    <label for="timeEnd">Время прибытия</label>
+    <input type="time" th:field = "*{timeEnd}" id="timeEnd" placeholder="">
+    <br>
+    <label for="dayOfWeek">День отбытия</label>
+    <input type="text" th:field = "*{dayOfWeek}" id="dayOfWeek" placeholder="">
+    <br>
+    <input type="submit" value="Добавить">
+
+</form>
+</body>
+</html>
