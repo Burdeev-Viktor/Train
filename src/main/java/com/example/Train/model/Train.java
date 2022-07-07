@@ -17,6 +17,8 @@ public class Train {
     @Column(name = "start")
     private String start;
 
+    private String asd;
+
     @Column(name = "end")
     private String end;
 
