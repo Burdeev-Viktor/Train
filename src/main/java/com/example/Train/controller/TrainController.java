@@ -23,7 +23,10 @@ private final TrainService trainService;
     public TrainController(TrainService trainService) {
         this.trainService = trainService;
     }
-
+    @GetMapping("/")
+    public String hello1(){
+        return "main_page";
+    }
     @GetMapping("/trains")
     public String findAll(Model model,Train train){
         List<Train> trainList;
@@ -80,48 +83,31 @@ private final TrainService trainService;
     if (Objects.equals(trainSearh.getDayOfWeek(), "Сегодня")){
         Calendar calendar=Calendar.getInstance();
         int dayofWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        switch (dayofWeek){
-            case 1:{
-                trainSearh.setDayOfWeek("Воскресенье");
-                break;
-            }
-            case 2:{
-                trainSearh.setDayOfWeek("Понедельник");
-                break;
-            }
-            case 3:{
-                trainSearh.setDayOfWeek("Вторник");
-                break;
-            }
-            case 4:{
-                trainSearh.setDayOfWeek("Среда");
-                break;
-            }
-            case 5:{
-                trainSearh.setDayOfWeek("Четверг");
-                break;
-            }
-            case 6:{
-                trainSearh.setDayOfWeek("Пятница");
-                break;
-            }
-            case 7:{
-                trainSearh.setDayOfWeek("Субота");
-                break;
-            }
-            default:{
-                trainSearh.setDayOfWeek("");
-            }
+        if (dayofWeek == 1) {
+            trainSearh.setDayOfWeek("Воскресенье");
+        } else if (dayofWeek == 2) {
+            trainSearh.setDayOfWeek("Понедельник");
+        } else if (dayofWeek == 3) {
+            trainSearh.setDayOfWeek("Вторник");
+        } else if (dayofWeek == 4) {
+            trainSearh.setDayOfWeek("Среда");
+        } else if (dayofWeek == 5) {
+            trainSearh.setDayOfWeek("Четверг");
+        } else if (dayofWeek == 6) {
+            trainSearh.setDayOfWeek("Пятница");
+        } else if (dayofWeek == 7) {
+            trainSearh.setDayOfWeek("Субота");
+        } else {
+            trainSearh.setDayOfWeek("");
         }
     }
     List<Train> sortlist = new ArrayList<Train>();
         for (Train train : trainList) {
             if ((Objects.equals(train.getStart(), trainSearh.getStart())
-                    || Objects.equals(trainSearh.getStart(), ""))
-                    && ((Objects.equals(train.getEnd(), trainSearh.getEnd()))
-                    || Objects.equals(trainSearh.getEnd(), ""))
-                    && ((Objects.equals(train.getDayOfWeek(), trainSearh.getDayOfWeek()))
-                    || Objects.equals(trainSearh.getDayOfWeek(), "")) ) {
+                    || Objects.equals(trainSearh.getStart(), "")) && (Objects.equals(train.getEnd(), trainSearh.getEnd())) && ((Objects.equals(train.getDayOfWeek(), trainSearh.getDayOfWeek()))
+                    || Objects.equals(trainSearh.getDayOfWeek(), "")) || (Objects.equals(train.getStart(), trainSearh.getStart())
+                    || Objects.equals(trainSearh.getStart(), "")) && Objects.equals(trainSearh.getEnd(), "") && ((Objects.equals(train.getDayOfWeek(), trainSearh.getDayOfWeek()))
+                    || Objects.equals(trainSearh.getDayOfWeek(), ""))) {
                 sortlist.add(train);
             }
         }
