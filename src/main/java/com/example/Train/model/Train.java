@@ -17,10 +17,10 @@ public class Train {
     @Column(name = "start")
     private String start;
 
-    private String asd;
-
     @Column(name = "end")
     private String end;
+
+    private String ensdad;
 
     @Column(name = "seat_buy")
     private int seat_buy;
