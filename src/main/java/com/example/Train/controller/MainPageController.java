@@ -41,33 +41,13 @@ public class MainPageController {
     }
     @PostMapping("/train-search-guest")
     public String search(Train train, Model model){
+        train.setDayOfWeek( train.getDayOfWeek().substring(8,10)+"-"+train.getDayOfWeek().substring(5,7)+"-"+train.getDayOfWeek().substring(0,4));
         List<Train> shortlist = searchByTrain(train);
         model.addAttribute("trainList",shortlist);
         return "main_page";
     }
     private List<Train> searchByTrain(Train trainSearh){
         List<Train> trainList = trainService.getAll();
-        if (Objects.equals(trainSearh.getDayOfWeek(), "Сегодня")){
-            Calendar calendar=Calendar.getInstance();
-            int dayofWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            if (dayofWeek == 1) {
-                trainSearh.setDayOfWeek("Воскресенье");
-            } else if (dayofWeek == 2) {
-                trainSearh.setDayOfWeek("Понедельник");
-            } else if (dayofWeek == 3) {
-                trainSearh.setDayOfWeek("Вторник");
-            } else if (dayofWeek == 4) {
-                trainSearh.setDayOfWeek("Среда");
-            } else if (dayofWeek == 5) {
-                trainSearh.setDayOfWeek("Четверг");
-            } else if (dayofWeek == 6) {
-                trainSearh.setDayOfWeek("Пятница");
-            } else if (dayofWeek == 7) {
-                trainSearh.setDayOfWeek("Субота");
-            } else {
-                trainSearh.setDayOfWeek("");
-            }
-        }
         List<Train> sortlist = new ArrayList<Train>();
         for (Train train : trainList) {
             if ((Objects.equals(train.getStart(), trainSearh.getStart())

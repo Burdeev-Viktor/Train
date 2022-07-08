@@ -19,7 +19,7 @@
                         <input type="text" th:field="*{end}" id ="end" placeholder="">
                         <br>
                         <label for="dayOfWeek">День отбытия</label>
-                        <input type="text" th:field = "*{dayOfWeek}" id="dayOfWeek" placeholder="">
+                        <input type="date" th:field = "*{dayOfWeek}" id="dayOfWeek" placeholder="">
                         <br>
                         <input type="submit" value="Найти">
                         <a th:href="@{/trains}">Сброс</a>

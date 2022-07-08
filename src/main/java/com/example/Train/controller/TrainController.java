@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -21,7 +24,27 @@ private final TrainService trainService;
         this.trainService = trainService;
     }
 
-
+    @PostMapping("/train-search")
+    public String search(Train train, Model model){
+        train.setDayOfWeek( train.getDayOfWeek().substring(8,10)+"-"+train.getDayOfWeek().substring(5,7)+"-"+train.getDayOfWeek().substring(0,4));
+        List<Train> shortlist = searchByTrain(train);
+        model.addAttribute("trainList",shortlist);
+        return "trains";
+    }
+    private List<Train> searchByTrain(Train trainSearh){
+        List<Train> trainList = trainService.getAll();
+        List<Train> sortlist = new ArrayList<Train>();
+        for (Train train : trainList) {
+            if ((Objects.equals(train.getStart(), trainSearh.getStart())
+                    || Objects.equals(trainSearh.getStart(), "")) && (Objects.equals(train.getEnd(), trainSearh.getEnd())) && ((Objects.equals(train.getDayOfWeek(), trainSearh.getDayOfWeek()))
+                    || Objects.equals(trainSearh.getDayOfWeek(), "")) || (Objects.equals(train.getStart(), trainSearh.getStart())
+                    || Objects.equals(trainSearh.getStart(), "")) && Objects.equals(trainSearh.getEnd(), "") && ((Objects.equals(train.getDayOfWeek(), trainSearh.getDayOfWeek()))
+                    || Objects.equals(trainSearh.getDayOfWeek(), ""))) {
+                sortlist.add(train);
+            }
+        }
+        return sortlist;
+    }
     @GetMapping("/trains")
     public String findAll(Model model,Train train){
         List<Train> trainList;
@@ -54,6 +77,7 @@ private final TrainService trainService;
     @PostMapping("/train-update")
     public String createUpdate(Train train){
         train.setTimeOfTrack(timeToTrack(train.getTimeStart(), train.getTimeEnd()));
+        train.setDayOfWeek( train.getDayOfWeek().substring(8,10)+"-"+train.getDayOfWeek().substring(5,7)+"-"+train.getDayOfWeek().substring(0,4));
         trainService.saveTrain(train);
         return "redirect:/trains";
     }
@@ -64,6 +88,7 @@ private final TrainService trainService;
     @PostMapping("/train-create")
     public String createTrain(Train train){
         train.setTimeOfTrack(timeToTrack(train.getTimeStart(), train.getTimeEnd()));
+        train.setDayOfWeek( train.getDayOfWeek().substring(8,10)+"-"+train.getDayOfWeek().substring(5,7)+"-"+train.getDayOfWeek().substring(0,4));
         trainService.saveTrain(train);
         return "redirect:/trains";
     }
