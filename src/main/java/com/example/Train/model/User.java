@@ -16,6 +16,17 @@ public class User {
     private String username;
     @Column(name = "password")
     private String password;
+
+    public String getConfPassword() {
+        return confPassword;
+    }
+
+    public void setConfPassword(String confPassword) {
+        this.confPassword = confPassword;
+    }
+
+    @Transient
+    private String confPassword;
     @Column(name = "active")
     private boolean active;
     @Column(name = "id_user_role")

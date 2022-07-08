@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Objects;
+
 @Controller
 public class RegistrationController {
 
@@ -23,7 +25,11 @@ public class RegistrationController {
     public String addUser(User user, Model model){
         User userFromdb = userRepository.findByUsername(user.getUsername());
         if(userFromdb!=null ){
-            model.addAttribute("massege","User Exist!");
+            model.addAttribute("massageUserIsExist","Такой пользователь существует!");
+            return "registration";
+        }
+        if(!Objects.equals(user.getPassword(), user.getConfPassword())){
+            model.addAttribute("massagePasswordsNotMatch","Пороли не совпадают");
             return "registration";
         }
         user.setActive(true);

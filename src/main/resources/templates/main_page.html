@@ -1,17 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
-
+    <title>Trains</title>
 </head>
 <body>
-<div>Hello word</div>
-<a href="/trains">
-    djqnb
-</a>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+<div th:switch="${trainList}">
+    <h2 th:case="null">Поездов нет</h2>
+    <div th:case="*">
+        <h2>Поезда</h2>
+
+
+        <form action="#" th:action="@{/train-search-guest}" th:object="${train}" method="post">
+            <label for = "start">Посадка</label>
+            <input type="text" th:field="*{start}" id ="start" placeholder="">
+            <br>
+            <label for = "end">Высодка</label>
+            <input type="text" th:field="*{end}" id ="end" placeholder="">
+            <br>
+            <label for="dayOfWeek">День отбытия</label>
+            <input type="text" th:field = "*{dayOfWeek}" id="dayOfWeek" placeholder="">
+            <br>
+            <input type="submit" value="Найти">
+
+        </form>
+        <a th:href="@{/main-page}">Сброс</a>
+
+
+
+
+        <table>
+            <thead>
+            <tr>
+                <th>Посадка</th>
+                <th>Высодка</th>
+                <th>Осталось билетов</th>
+                <th>Время отбытия</th>
+                <th>Время прибытия</th>
+                <th>Время в пути</th>
+                <th>День недели</th>
+                <th>Стоимость</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="train : ${trainList}">
+                <td th:text="${train.start}"></td>
+                <td th:text="${train.end}"></td>
+                <td th:text="${train.seat_all - train.seat_buy}"></td>
+                <td th:text="${train.timeStart}"></td>
+                <td th:text="${train.timeEnd}"></td>
+                <td th:text="${train.timeOfTrack}"></td>
+                <td th:text="${train.dayOfWeek}"></td>
+                <td th:text="${train.price/100}+.+${train.price%100}+ Br."> </td>
+
+                <div th:switch="${train.seat_all - train.seat_buy}">
+                    <td th:case="0">Билетов нет</td>
+                    <td th:case="*"><a th:href="@{train-buy/{id}(id=${train.getIdtrain()})}">Купить</a></td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 </body>
 </html>

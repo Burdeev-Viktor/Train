@@ -5,18 +5,24 @@
     <title>Registration</title>
 </head>
 <body>
-<div th:field="${massege}">
 
-</div>
 <div th:if="${param.error}">
     Invalid username and password.
 </div>
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
+<div th:if="${massageUserIsExist}">
+    Такой пользователь существует!
+</div>
+<div th:if="${massagePasswordsNotMatch}">
+    Пороли не совпадают!
+</div>
 <form th:action="@{/registration}" method="post">
+
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><label> Password: <input type="password" name="confPassword"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
 </body>
