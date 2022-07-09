@@ -1,8 +1,12 @@
 package com.example.Train.controller;
 
 import com.example.Train.model.Train;
+import com.example.Train.model.User;
+import com.example.Train.service.TicketService;
 import com.example.Train.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,8 @@ import java.util.Objects;
 @Controller
 public class TrainController {
 private final TrainService trainService;
+@Autowired
+private TicketService ticketService;
 
 @Autowired
     public TrainController(TrainService trainService) {
@@ -55,8 +61,9 @@ private final TrainService trainService;
     return "trains";
     }
 @GetMapping("train-buy/{id}")
-    public String buyTrain(@PathVariable("id") Long id, Model model){
+    public String buyTrain(@AuthenticationPrincipal UserDetails user, @PathVariable("id") Long id, Model model){
     Train train = trainService.getTrain(id);
+    ticketService.saveByTrainUser(train, user.getUsername());
     train.setSeat_buy(train.getSeat_buy()+1);
     trainService.saveTrain(train);
     model.addAttribute("train",train);

@@ -1,5 +1,6 @@
 package com.example.Train.config;
 
+import com.example.Train.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +16,7 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private DataSource dataSource;
+    private UserService userService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -34,11 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("SELECT user_name,password,active FROM users WHERE user_name=?")
-                .authoritiesByUsernameQuery("select u.user_name,ur.roles from users u inner join user_role ur on u.id_user_role = ur.id_role where u.user_name=?")
-                 ;
+        auth.userDetailsService(userService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
 }
 }
