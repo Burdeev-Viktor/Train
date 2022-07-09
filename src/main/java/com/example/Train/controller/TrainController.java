@@ -99,6 +99,11 @@ private TicketService ticketService;
         trainService.saveTrain(train);
         return "redirect:/trains";
     }
+    @GetMapping("/tickets")
+    public String ticketsForm(@AuthenticationPrincipal UserDetails user, Model model){
+        model.addAttribute("list_ticket",ticketService.findByUsername(user.getUsername()));
+    return "tickets";
+    }
 
 
 

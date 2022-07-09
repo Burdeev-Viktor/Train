@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Билеты</title>
+</head>
+<body>
+<div th:switch="${list_ticket}">
+    <h2 th:case="null">Куплиных билетов нет</h2>
+    <div th:case="*">
+        <h2>Билеты</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Имя покупателя</th>
+                <th>Посадка</th>
+                <th>Высодка</th>
+                <th>Стоймость</th>
+                <th>Время отбытия</th>
+                <th>День отбытия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ticked : ${list_ticket}">
+                <td th:text="${ticked.username}"></td>
+                <td th:text="${ticked.start}">
+                <td th:text="${ticked.end}"></td>
+                <td th:text="${ticked.price/100}+.+${ticked.price%100}+ Br."> </td>
+                <td th:text="${ticked.timeStart}"></td>
+                <td th:text="${ticked.date}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
