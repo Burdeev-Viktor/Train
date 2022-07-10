@@ -1,7 +1,6 @@
 package com.example.Train.controller;
 
 import com.example.Train.model.Train;
-import com.example.Train.model.User;
 import com.example.Train.service.TicketService;
 import com.example.Train.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +30,9 @@ private TicketService ticketService;
 
     @PostMapping("/train-search")
     public String search(Train train, Model model){
-        train.setDayOfWeek( train.getDayOfWeek().substring(8,10)+"-"+train.getDayOfWeek().substring(5,7)+"-"+train.getDayOfWeek().substring(0,4));
+    if(train.getDayOfWeek()!=null && !Objects.equals(train.getDayOfWeek(), "")) {
+        train.setDayOfWeek(train.getDayOfWeek().substring(8, 10) + "-" + train.getDayOfWeek().substring(5, 7) + "-" + train.getDayOfWeek().substring(0, 4));
+    }
         List<Train> shortlist = searchByTrain(train);
         model.addAttribute("trainList",shortlist);
         return "trains";
