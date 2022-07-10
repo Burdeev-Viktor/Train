@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Покупка билета</title>
+</head>
+<body>
+<div th:if="${notMoney}">
+    У вас не хвотает денег
+</div>
+<div th:switch="${train}">
+    <h2 th:case="null">Ошибка входа</h2>
+    <div th:case="*">
+<label>№ Билета:</label>
+</br>
+<label>От:<label th:text="${train.start}"></label></label>
+</br>
+<label>До:<label th:text="${train.end}"></label></label>
+</br>
+<label>Стоймость:<label th:text="${train.price/100}+.+${train.price%100}+ Br."></label></label>
+</br>
+<label>Дата отправления:<label th:text="${train.dayOfWeek}"></label></label>
+</br>
+<label>Время отпровления:<label th:text="${train.timeStart}"></label></label>
+</br>
+<a th:href="@{/buy-ticket/{id}(id=${train.getIdtrain()})}" >Купить</a>
+    </div>
+</body>
+</html>

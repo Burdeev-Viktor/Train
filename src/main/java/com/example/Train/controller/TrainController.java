@@ -81,8 +81,14 @@ private User user;
     return "trains";
     }
 @GetMapping("train-buy/{id}")
-    public String buyTrain(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id, Model model){
+    public String buyTrain( @PathVariable("id") Long id, Model model){
     Train train = trainService.getTrain(id);
+    model.addAttribute("train",train);
+    return "buy-ticket";
+    }
+    @GetMapping("/buy-ticket/{id}")
+    public String buyTicket(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id, Model model){
+        Train train = trainService.getTrain(id);
     User user = userService.findUserByUsername(userDetails.getUsername());
     if(train.getPrice()<=user.getWallet()){
         ticketService.saveByTrainUser(train, userDetails.getUsername());
@@ -93,11 +99,12 @@ private User user;
         userService.save(user);
         return "redirect:/trains";
     } else {
-        String massage ="нехватает денег";
+        model.addAttribute("train",train);
+        model.addAttribute("notMoney","нехватает денег");
     }
 
 
-    return "redirect:/trains";
+        return "buy-ticket";
     }
 
     @GetMapping("train-delete/{id}")
