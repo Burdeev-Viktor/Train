@@ -35,6 +35,17 @@ public class User implements UserDetails {
     @Column(name = "id_user_role")
     private int roles;
 
+    public Long getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Long wallet) {
+        this.wallet = wallet;
+    }
+
+    @Column(name = "wallet")
+    private Long wallet;
+
     public Long getId() {
         return id;
     }

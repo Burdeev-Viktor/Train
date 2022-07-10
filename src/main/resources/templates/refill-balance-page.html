@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пополнение баланса</title>
+</head>
+<body>
+<div>
+    <div th:switch="${user}">
+        <h2 th:case="null">Ошибка входа</h2>
+        <div th:case="*">
+            <label> Имя:<label th:text="*{user.username}"></label></label>
+            </br>
+            <label> Баланс:<label th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
+            </br>
+        </div>
+    </div>
+<form action="#" th:action="@{/refill-balance}" th:object="${wallet}" method="post">
+            <label> Пополнить на:<input type="number" th:field = "*{wallet}" id="wallet" placeholder=""></label>
+            </br>
+        <input type="submit" value="Пополнить">
+</form>
+
+</body>
+</html>

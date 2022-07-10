@@ -55,7 +55,7 @@ public class MainPageController {
         }
         return sortlist;
     }
-    @GetMapping   ("/sort-by-price")
+    @GetMapping   ("/sort-by-price-guest")
     public String SortByPrice(Model model,Train train){
         Collections.sort(trainList, new Comparator<Train>() {
             @Override

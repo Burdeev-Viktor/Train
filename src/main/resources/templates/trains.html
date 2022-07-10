@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th=http://www.thymeleaf.org
+      xmlns:sec=http://www.thymeleaf.org/extras/spring-security
+      xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
 <head>
     <meta charset="UTF-8">
     <title>Trains</title>
 </head>
 <body>
+<div>
+    <div th:switch="${user}">
+        <h2 th:case="null">Ошибка входа</h2>
+       <div th:case="*">
+    <label> Имя:<label th:text="*{user.username}"></label></label>
+           </br>
+
+    <label> Баланс:<label th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
+           <a href="/refill-balance">Пополнить</a>
+           </br>
+           <a href="/logout">Выйти</a>
+       </div>
+</div>
 <div th:switch="${trainList}">
     <h2 th:case="null">Поездов нет</h2>
     <div th:case="*">
@@ -23,9 +38,8 @@
                         <br>
                         <input type="submit" value="Найти">
                         <a th:href="@{/trains}">Сброс</a>
-
-
                     </form>
+        <a th:href="@{/sort-by-price}">Сортировка по стоймости</a>
 
 
 

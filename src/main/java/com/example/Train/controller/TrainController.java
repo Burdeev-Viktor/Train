@@ -1,8 +1,10 @@
 package com.example.Train.controller;
 
 import com.example.Train.model.Train;
+import com.example.Train.model.User;
 import com.example.Train.service.TicketService;
 import com.example.Train.service.TrainService;
+import com.example.Train.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,9 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 @Controller
@@ -24,21 +24,40 @@ private final TrainService trainService;
 private TicketService ticketService;
 
 @Autowired
+private UserService userService;
+private List<Train> trainList;
+private User user;
+
+@Autowired
     public TrainController(TrainService trainService) {
         this.trainService = trainService;
     }
 
+    @GetMapping   ("/sort-by-price")
+    public String SortByPrice(Model model,Train train){
+        Collections.sort(trainList, new Comparator<Train>() {
+            @Override
+            public int compare(Train o1, Train o2) {
+                return o1.getPrice()- o2.getPrice();
+            }
+        });
+
+        model.addAttribute("trainList",trainList);
+        model.addAttribute("train",train);
+        model.addAttribute("user",user);
+        return "trains";
+    }
     @PostMapping("/train-search")
     public String search(Train train, Model model){
     if(train.getDayOfWeek()!=null && !Objects.equals(train.getDayOfWeek(), "")) {
         train.setDayOfWeek(train.getDayOfWeek().substring(8, 10) + "-" + train.getDayOfWeek().substring(5, 7) + "-" + train.getDayOfWeek().substring(0, 4));
     }
-        List<Train> shortlist = searchByTrain(train);
-        model.addAttribute("trainList",shortlist);
+        trainList = searchByTrain(train);
+        model.addAttribute("trainList",trainList);
         return "trains";
     }
     private List<Train> searchByTrain(Train trainSearh){
-        List<Train> trainList = trainService.getAll();
+    trainList = trainService.getAll();
         List<Train> sortlist = new ArrayList<Train>();
         for (Train train : trainList) {
             if ((Objects.equals(train.getStart(), trainSearh.getStart())
@@ -52,22 +71,33 @@ private TicketService ticketService;
         return sortlist;
     }
     @GetMapping("/trains")
-    public String findAll(Model model,Train train){
-        List<Train> trainList;
+    public String findAll(@AuthenticationPrincipal UserDetails userDetails,Model model,Train train){
+        user = userService.findUserByUsername(userDetails.getUsername());
         trainList = trainService.getAll();
         Train trainSearch = new Train();
         model.addAttribute("trainList",trainList);
         model.addAttribute("trainSearch",trainSearch);
+        model.addAttribute("user",user);
     return "trains";
     }
 @GetMapping("train-buy/{id}")
-    public String buyTrain(@AuthenticationPrincipal UserDetails user, @PathVariable("id") Long id, Model model){
+    public String buyTrain(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id, Model model){
     Train train = trainService.getTrain(id);
-    ticketService.saveByTrainUser(train, user.getUsername());
-    train.setSeat_buy(train.getSeat_buy()+1);
-    trainService.saveTrain(train);
-    model.addAttribute("train",train);
-    return "redirect:/trains  ";
+    User user = userService.findUserByUsername(userDetails.getUsername());
+    if(train.getPrice()<=user.getWallet()){
+        ticketService.saveByTrainUser(train, userDetails.getUsername());
+        train.setSeat_buy(train.getSeat_buy()+1);
+        trainService.saveTrain(train);
+        model.addAttribute("train",train);
+        user.setWallet(user.getWallet()- train.getPrice());
+        userService.save(user);
+        return "redirect:/trains";
+    } else {
+        String massage ="нехватает денег";
+    }
+
+
+    return "redirect:/trains";
     }
 
     @GetMapping("train-delete/{id}")
@@ -88,6 +118,19 @@ private TicketService ticketService;
         trainService.saveTrain(train);
         return "redirect:/trains";
     }
+    @GetMapping("/refill-balance")
+    public String refillBalanceForm(Model model){
+    model.addAttribute("user",user);
+        model.addAttribute("wallet",new User());
+    return "refill-balance-page";
+    }
+    @PostMapping("/refill-balance")
+    public String refillBalance(User wallet,Model model){
+        user.setWallet(user.getWallet()+wallet.getWallet());
+        userService.save(user);
+        return "redirect:/trains";
+    }
+
     @GetMapping("/train-create")
     public String trainCreateForm(Train train){
         return "train-create";
