@@ -88,6 +88,7 @@ private User user;
     }
     @GetMapping("/buy-ticket/{id}")
     public String buyTicket(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id, Model model){
+
         Train train = trainService.getTrain(id);
     User user = userService.findUserByUsername(userDetails.getUsername());
     if(train.getPrice()<=user.getWallet()){

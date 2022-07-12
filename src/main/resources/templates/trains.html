@@ -8,6 +8,7 @@
 </head>
 <body>
 <div>
+    <a th:href="@{/admin-page}">Страница админа</a>
     <div th:switch="${user}">
         <h2 th:case="null">Ошибка входа</h2>
        <div th:case="*">

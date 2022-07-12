@@ -1,6 +1,11 @@
 package com.example.Train.controller;
 
+import com.example.Train.model.Role;
 import com.example.Train.model.User;
+import com.example.Train.model.User_Role;
+import com.example.Train.repository.UserRepository;
+import com.example.Train.repository.UserRoleRepository;
+import com.example.Train.service.UserRoleService;
 import com.example.Train.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,11 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Controller
 public class RegistrationController {
 
+    @Autowired
+    private UserRoleService userRoleService;
     @Autowired
     private UserService userService;
 
@@ -33,9 +43,9 @@ public class RegistrationController {
             return "registration";
         }
         user.setWallet(0L);
-        user.setActive(true);
-        user.setRoles(1);
         userService.add(user);
+        user=userService.findUserByUsername(user.getUsername());
+        userRoleService.save(new User_Role(user.getId(),2));
         return "redirect:/login";
     }
 }
