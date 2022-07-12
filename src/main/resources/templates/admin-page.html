@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th=http://www.thymeleaf.org
+      xmlns:sec=http://www.thymeleaf.org/extras/spring-security
+      xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Trains</title>
 </head>
 <body>
-<label>привет админ</label>
+<div>
+    <div th:switch="${user}">
+        <h2 th:case="null">Ошибка входа</h2>
+        <div th:case="*">
+            <label> Имя:<label th:text="*{user.username}"></label></label>
+            </br>
+            <label> Баланс:<label th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
+            <a href="/admin-page/refill-balance">Пополнить</a>
+            </br>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </div>
+    </div>
+    <div th:switch="${trainList}">
+        <h2 th:case="null">Поездов нет</h2>
+        <div th:case="*">
+            <h2>Поезда</h2>
+            <form action="#" th:action="@{/admin-page/train-search}" th:object="${train}" method="post">
+                <label for = "start">Посадка</label>
+                <input type="text" th:field="*{start}" id ="start" placeholder="">
+                <br>
+                <label for = "end">Высодка</label>
+                <input type="text" th:field="*{end}" id ="end" placeholder="">
+                <br>
+                <label for="dayOfWeek">День отбытия</label>
+                <input type="date" th:field = "*{dayOfWeek}" id="dayOfWeek" placeholder="">
+                <br>
+                <input type="submit" value="Найти">
+                <a th:href="@{/admin-page}">Сброс</a>
+            </form>
+            <a th:href="@{/admin-page/sort-by-price}">Сортировка по стоймости</a>
+            <table>
+                <thead>
+                <tr>
+                    <th>Посадка</th>
+                    <th>Высодка</th>
+                    <th>Осталось билетов</th>
+                    <th>Время отбытия</th>
+                    <th>Время прибытия</th>
+                    <th>Время в пути</th>
+                    <th>День недели</th>
+                    <th>Стоимость</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="train : ${trainList}">
+                    <td th:text="${train.start}"></td>
+                    <td th:text="${train.end}"></td>
+                    <td th:text="${train.seat_all - train.seat_buy}"></td>
+                    <td th:text="${train.timeStart}"></td>
+                    <td th:text="${train.timeEnd}"></td>
+                    <td th:text="${train.timeOfTrack}"></td>
+                    <td th:text="${train.dayOfWeek}"></td>
+                    <td th:text="${train.price/100}+.+${train.price%100}+ Br."> </td>
+
+                    <div th:switch="${train.seat_all - train.seat_buy}">
+                        <td th:case="0">Билетов нет</td>
+                        <td th:case="*"><a th:href="@{/admin-page/train-buy/{id}(id=${train.getIdtrain()})}">Купить</a></td>
+                    </div>
+                    <td ><a th:href="@{/admin-page/train-delete/{id}(id=${train.getIdtrain()})}">Удалить</a></td>
+                    <td><a th:href="@{/admin-page/train-update/{id}(id=${train.getIdtrain()})}">Изменить</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <a th:href="@{/admin-page/train-create}">Добавить поезд</a>
+        <a th:href="@{/admin-page/tickets}">Мои билеты</a>
+    </div>
 </body>
 </html>

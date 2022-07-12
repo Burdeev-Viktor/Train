@@ -16,6 +16,7 @@
         </div>
     </div>
 <form action="#" th:action="@{/refill-balance}" th:object="${wallet}" method="post">
+
             <label> Пополнить на:<input type="number" th:field = "*{wallet}" id="wallet" placeholder=""></label>
             </br>
         <input type="submit" value="Пополнить">

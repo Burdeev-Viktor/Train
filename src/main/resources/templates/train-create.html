@@ -5,7 +5,7 @@
     <title>Create train</title>
 </head>
 <body>
-<form action="#" th:action="@{/train-create}" th:object="${train}" method="post">
+<form action="#" th:action="@{/admin-page/train-create}" th:object="${train}" method="post">
     <label for = "start">Посадка</label>
     <input type="text" th:field="*{start}" id ="start" placeholder="">
     <br>

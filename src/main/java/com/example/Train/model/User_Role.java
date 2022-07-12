@@ -1,9 +1,12 @@
 package com.example.Train.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users_roles")
+@Component
 public class User_Role {
     @Column(name = "user_id")
     Long user_id;
@@ -23,6 +26,14 @@ public class User_Role {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public int getRole_id() {
+        return role_id;
     }
 
     public User_Role(Long user_id, int role_id) {

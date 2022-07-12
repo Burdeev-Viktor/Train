@@ -18,15 +18,16 @@
     <label> Баланс:<label th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
            <a href="/refill-balance">Пополнить</a>
            </br>
-           <a href="/logout">Выйти</a>
+           <form th:action="@{/logout}" method="post">
+               <input type="submit" value="Sign Out"/>
+           </form>
+
        </div>
 </div>
 <div th:switch="${trainList}">
     <h2 th:case="null">Поездов нет</h2>
     <div th:case="*">
         <h2>Поезда</h2>
-
-
                     <form action="#" th:action="@{/train-search}" th:object="${train}" method="post">
                         <label for = "start">Посадка</label>
                         <input type="text" th:field="*{start}" id ="start" placeholder="">
@@ -41,11 +42,6 @@
                         <a th:href="@{/trains}">Сброс</a>
                     </form>
         <a th:href="@{/sort-by-price}">Сортировка по стоймости</a>
-
-
-
-
-
         <table>
             <thead>
             <tr>
@@ -74,15 +70,11 @@
                     <td th:case="0">Билетов нет</td>
                     <td th:case="*"><a th:href="@{train-buy/{id}(id=${train.getIdtrain()})}">Купить</a></td>
                 </div>
-                <td ><a th:href="@{train-delete/{id}(id=${train.getIdtrain()})}">Удалить</a></td>
-                <td><a th:href="@{train-update/{id}(id=${train.getIdtrain()})}">Изменить</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <a th:href="@{train-create}">Добавить поезд</a>
     <a th:href="@{tickets}">Мои билеты</a>
-
 </div>
 
 </body>

@@ -5,7 +5,7 @@
     <title>Train Update</title>
 </head>
 <body>
-<form action="#" th:action="@{/train-update}" th:object="${train}" method="post">
+<form action="#" th:action="@{/admin-page/train-update}" th:object="${train}" method="post">
     <label for="idtrain">ID</label>
     <input readonly type="number" th:field = "*{idtrain}" id="idtrain" placeholder="">
     <br>
