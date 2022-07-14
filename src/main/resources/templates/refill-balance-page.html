@@ -12,19 +12,18 @@
         <h2 th:case="null">Ошибка входа</h2>
         <div th:case="*">
             <label class="label_input"> Имя:<label class="label_input" th:text="*{user.username}"></label></label>
-            <br>
-            <label class="label_input"> Баланс:<label class="label_input" th:text="${user.wallet}+ Br."></label></label>
-            <br>
+            </br>
+            <label class="label_input"> Баланс:<label class="label_input" th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
+            </br>
         </div>
     </div>
-
 <form action="#" th:action="@{/refill-balance}" th:object="${wallet}" method="post">
 
-            <label class="label_input"> Пополнить на:<input class="balance-field_input" type="text" th:field = "*{wallet}" id="wallet" placeholder=""></label>
-            <br>
+            <label class="label_input"> Пополнить на:<input class="balance-field_input" type="number" th:field = "*{wallet}" id="wallet" placeholder=""></label>
+            </br>
         <input class="button" type="submit" value="Пополнить">
     <a class="button" th:href="@{/trains}">Отмена</a>
 </form>
-</div>
+
 </body>
 </html>

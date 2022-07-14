@@ -53,14 +53,9 @@ public class Calculation {
         trainList.sort(new Comparator<Train>() {
             @Override
             public int compare(Train o1, Train o2) {
-                return (int) (o1.getPrice()*100 - o2.getPrice()*100);
+                return o1.getPrice() - o2.getPrice();
             }
         });
         return trainList;
     }
-    static public float rounding(float wallet){
-        float scale = (float) Math.pow(10, 2);
-        return (float) (Math.ceil(wallet * scale) / scale);
-    }
-
 }
