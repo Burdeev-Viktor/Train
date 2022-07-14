@@ -1,5 +1,6 @@
 package com.example.Train.controller;
 
+import com.example.Train.Calculation;
 import com.example.Train.model.Train;
 import com.example.Train.service.TrainService;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,7 @@ public class MainPageController {
         this.trainService = trainService;
     }
     @GetMapping("/")
-    public String hello(Model model, Train train){
-
+    public String hello (Model model, Train train){
         trainList = trainService.getAll();
 
         Train trainSearch = new Train();
@@ -57,16 +57,12 @@ public class MainPageController {
     }
     @GetMapping   ("/sort-by-price-guest")
     public String SortByPrice(Model model,Train train){
-        Collections.sort(trainList, new Comparator<Train>() {
-            @Override
-            public int compare(Train o1, Train o2) {
-                return o1.getPrice()- o2.getPrice();
-            }
-        });
+        trainList= Calculation.sortByPrice(trainList);
 
         model.addAttribute("trainList",trainList);
         model.addAttribute("train",train);
         return "main_page";
     }
+
 
 }

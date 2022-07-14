@@ -2,38 +2,124 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Train Update</title>
+    <!--th:href="@{/css/style.css}"-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" >
+    <title>Изменение поезда</title>
 </head>
 <body>
+<div th:switch="${user}">
+    <h2 th:case="null"><!--Ошибка входа--></h2>
+    <div th:case="*">
+        <div class="div_header">
+            <h2 class="logo">Поезда</h2>
+            <div class="div_user">
+                <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
+                <br>
+
+                <label class="label_user"> Баланс:<label th:text="${user.wallet%100}+ Br."></label></label>
+                <br>
+                <a class="link_hidden" href="/refill-balance">Пополнить</a>
+                <br>
+                <form th:action="@{/logout}" method="post">
+                    <input class="button_login" type="submit" value="Выйти"/>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
 <form action="#" th:action="@{/admin-page/train-update}" th:object="${train}" method="post">
-    <label for="idtrain">ID</label>
-    <input readonly type="number" th:field = "*{idtrain}" id="idtrain" placeholder="">
+    <table class="container_center_train">
+        <tbody>
+        <tr>
+            <td>
+                <label class="label_input" for="idtrain">ID</label>
+            </td>
+            <td>
+                <input class="input" readonly type="number" th:field = "*{idtrain}" id="idtrain" placeholder="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label_input" for = "start">Посадка:</label>
+            </td>
+            <td>
+                <input class="input" type="text" th:field = "*{start}" id="start" placeholder="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label_input" for="end">Высодка:</label>
+            </td>
+            <td>
+                <input class="input" type="text" th:field = "*{end}" id="end" placeholder="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label_input" for="seat_buy">Куплино билетов:</label>
+            </td>
+            <td>
+                <input class="input" readonly type="number" th:field = "*{seat_buy}" id="seat_buy" placeholder="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label_input" for="seat_all">Всего билетов:</label>
+            </td>
+            <td>
+                <input class="input" type="number" th:field = "*{seat_all}" id="seat_all" placeholder="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label_input" for="price">Стоймость:</label>
+            </td>
+            <td>
+                <input class="input"  type="text" th:field = "*{price}" id="price" placeholder=""> Br.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label_input" for="timeStart">Время отбытия:</label>
+            </td>
+            <td class="td_center">
+                <input class="input_time" type="time" th:field = "*{timeStart}" id="timeStart" placeholder="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label_input" for="timeEnd">Время прибытия:</label>
+            </td>
+            <td class="td_center">
+                <input class="input_time" type="time" th:field = "*{timeEnd}" id="timeEnd" placeholder="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label_input" for="date">День отбытия:</label>
+            </td>
+            <td class="td_center">
+                <input class="input_date" type="date" th:field = "*{date}" id="date" placeholder="">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="div_buttons_yes_or_on">
+                <input class="button" type="submit" value="Изменить">
+                <a class="button" href="/admin-page">Назад</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
     <br>
-    <label for = "start">Посадка</label>
-    <input type="text" th:field = "*{start}" id="start" placeholder="">
+
+
     <br>
-    <label for="end">Высодка</label>
-    <input type="text" th:field = "*{end}" id="end" placeholder="">
-    <br>
-    <label for="seat_buy">Куплино билетов</label>
-    <input  type="number" th:field = "*{seat_buy}" id="seat_buy" placeholder="">
-    <br>
-    <label for="seat_all">Всего билетов</label>
-    <input type="number" th:field = "*{seat_all}" id="seat_all" placeholder="">
-    <br>
-    <label for="price">Стоймость</label>
-    <input  type="text" th:field = "*{price}" id="price" placeholder="">
-    <br>
-    <label for="timeStart">Время отбытия</label>
-    <input type="time" th:field = "*{timeStart}" id="timeStart" placeholder="">
-    <br>
-    <label for="timeEnd">Время прибытия</label>
-    <input type="time" th:field = "*{timeEnd}" id="timeEnd" placeholder="">
-    <br>
-    <label for="date">День отбытия</label>
-    <input type="date" th:field = "*{date}" id="date" placeholder="">
-    <br>
-    <input type="submit" value="Изменить">
+
 
 </form>
 

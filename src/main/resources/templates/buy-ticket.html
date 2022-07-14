@@ -7,50 +7,48 @@
     <title>Покупка билета</title>
 </head>
 <body>
-
 <div th:switch="${user}">
-    <h2 th:case="null"><!--Ошибка входа--></h2>
+    <h2 class="massage_fail" th:case="null"><!--Ошибка входа--></h2>
     <div th:case="*">
         <div class="div_header">
             <h2 class="logo">Поезда</h2>
             <div class="div_user">
                 <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
-                </br>
-
-                <label class="label_user"> Баланс:<label th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
-                </br>
+                <br>
+                <label class="label_user"> Баланс:<label th:text="${user.wallet}+ Br."></label></label>
+                <br>
                 <a class="link_hidden" href="/refill-balance">Пополнить</a>
-                </br>
+                <br>
                 <form th:action="@{/logout}" method="post">
                     <input class="button_login" type="submit" value="Выйти"/>
                 </form>
             </div>
-
         </div>
-
-
     </div>
 <div th:switch="${train}">
-    <h2 th:case="null">Ошибка входа</h2>
+    <h2 class="massage_fail" th:case="null">Ошибка входа</h2>
     <div class="container_center_buy" th:case="*">
         <div class="massage_fail" th:if="${notMoney}">
             У вас не хватает денег
         </div>
-        <label class="label_input">№ Билета:</label>
+        <label class="label_input_big">№ Билета:---</label>
         <br>
-        <label class="label_input">От:<label class="label_input" th:text="${train.start}"></label></label>
+        <label class="label_input_big">От:<label class="label_input_big" th:text="${train.start}"></label></label>
         <br>
-        <label class="label_input">До:<label class="label_input" th:text="${train.end}"></label></label>
+        <label class="label_input_big">До:<label class="label_input_big" th:text="${train.end}"></label></label>
         <br>
-        <label class="label_input">Стоймость:<label class="label_input" th:text="${train.price/100}+.+${train.price%100}+ Br."></label></label>
+        <label class="label_input_big">Стоймость:<label class="label_input_big" th:text="${train.price%100}+ Br."></label></label>
         <br>
-        <label class="label_input">Дата отправления:<label class="label_input" th:text="${train.getDate}"></label></label>
+        <label class="label_input_big">Дата отправления:<label class="label_input_big" th:text="${train.getDate}"></label></label>
         <br>
-        <label class="label_input">Время отпровления:<label class="label_input" th:text="${train.timeStart}"></label></label>
+        <label class="label_input_big">Время отпровления:<label class="label_input_big" th:text="${train.timeStart}"></label></label>
         <br>
         <br>
-        <a class="button" th:href="@{/buy-ticket/{id}(id=${train.getIdtrain()})}" >Купить</a>
-        <a class="button" th:href="@{/trains}">отмена</a>
+        <div class="div_buttons_yes_or_on">
+            <a class="button_login_big" th:href="@{/buy-ticket/{id}(id=${train.getIdtrain()})}" >Купить</a>
+            <a class="button_login_big" th:href="@{/trains}">Отмена</a>
+        </div>
+
     </div>
 </body>
 </html>

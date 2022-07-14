@@ -55,7 +55,8 @@ public class AdminController {
         if(sort){
             Calculation.sortByPrice(trainList);
         }
-        model.addAttribute("trainList",Calculation.sortByTrain(train,trainList));
+        trainList=Calculation.sortByTrain(train,trainList);
+        model.addAttribute("trainList",trainList);
         model.addAttribute("user",user);
         return "admin-page";
     }
@@ -68,7 +69,7 @@ public class AdminController {
     public String trainUpdateForm(@PathVariable("id") Long id , Model model){
         Train train = trainService.getTrain(id);
         train.setDate( train.getDate().substring(6,10)+"-"+train.getDate().substring(3 ,5)+"-"+train.getDate().substring(0,2));
-
+        model.addAttribute("user",user);
         model.addAttribute("train",train);
 
         return "train-update";
@@ -83,6 +84,7 @@ public class AdminController {
     @GetMapping("train-buy/{id}")
     public String buyTrain( @PathVariable("id") Long id, Model model){
         Train train = trainService.getTrain(id);
+        model.addAttribute("user",user);
         model.addAttribute("train",train);
         return "buy-ticket";
     }
@@ -109,7 +111,9 @@ public class AdminController {
     }
 
     @GetMapping("/train-create")
-    public String trainCreateForm(Train train){
+    public String trainCreateForm(Train train,Model model){
+
+        model.addAttribute("user",user);
         return "train-create";
     }
     @PostMapping("/train-create")
@@ -126,8 +130,7 @@ if(!train.trainIsExists()){
     @GetMapping("/refill-balance")
     public String refillBalanceForm(Model model){
         model.addAttribute("user",user);
-        Float wallet=0.0f;
-        model.addAttribute("wallet",wallet);
+        model.addAttribute("wallet",new User());
         return "refill-balance-page";
     }
     @PostMapping("/refill-balance")

@@ -14,18 +14,21 @@
             <div class="massage_fail" th:if="${param.error}">
                 Неверное имя пользователя и пароль.
             </div>
-                <label class="label_input"> Логин : </label>
-                </br>
-                <input class="text-field__input" type="text" name="username"/>
+                <label class="label_input_big"> Логин : </label>
+                <br>
+                <input class="input_big" type="text" name="username"/>
 
 
-                <label class="label_input"> Пороль:  </label>
-                </br>
-                <input class="text-field__input"  type="password" name="password"/>
+                <label class="label_input_big"> Пороль:  </label>
+                <br>
+                <input class="input_big"  type="password" name="password"/>
 
                 <div class="div_button_center">
-                    <input class="button" type="submit" value="войти"/>
-                    <a class="link_hidden" href="/registration">Зарегистрироваться </a>
+                    <input class="button_login_big" type="submit" value="войти"/>
+                    <br>
+                    <a class="link_hidden" href="/registration">Зарегистрироваться</a>
+                    <br>
+                    <a class="link_hidden" href="/">Продолжить без входа</a>
                 </div>
 
         </form>

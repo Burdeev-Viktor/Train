@@ -17,7 +17,16 @@ body{
     font-size: 12px;
 }
 .container_center{
-    width: 200px;
+    width: 400px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 45%;
+    transform: translate(0,-45%);
+}
+.container_center_balance{
+    width: 260px;
     position: absolute;
     left: 0;
     right: 0;
@@ -26,17 +35,25 @@ body{
     transform: translate(0,-45%);
 }
 .container_center_buy{
-    width: 250px;
+    width: 270px;
     position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
     top: 45%;
 }
-.balance-field_input {
-    margin:3px 5px ;
-    width: 55px;
-    height: 20px;
+.container_center_train{
+    width: 350px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 45%;
+}
+.balance_input {
+    margin:5px 5px ;
+    width: 70px;
+    height: 30px;
     padding: 2px 2px;
     font-size: 14px;
     font-weight: 400;
@@ -47,18 +64,39 @@ body{
     border-radius: 5px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.balance-field_input:focus{
+.balance_input:focus{
     color: #212529;
     background-color: #fff;
     border-color: #bdbdbd;
     outline: 0;
     box-shadow: 0 0 0 3px rgba(158, 158, 158, 0.25);
 }
-.text-field__input {
+.input_big {
     margin:3px 0 ;
-    width: 200px;
-    height: 20px;
-    padding: 2px 2px;
+    width: 350px;
+    height: 40px;
+    padding: 2px 10px;
+    font-size: 25px;
+    font-weight: 400;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.input_big:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    outline: 0;
+    box-shadow: 0 0 0 5px rgba(158, 158, 158, 0.25);
+}
+.input {
+    margin:3px 0 ;
+    width: 150px;
+    height: 15px;
+    padding: 2px 10px;
     font-size: 14px;
     font-weight: 400;
     color: #212529;
@@ -68,14 +106,64 @@ body{
     border-radius: 5px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.text-field__input:focus{
+.input:focus{
     color: #212529;
     background-color: #fff;
     border-color: #bdbdbd;
     outline: 0;
-    box-shadow: 0 0 0 3px rgba(158, 158, 158, 0.25);
+    box-shadow: 0 0 0 5px rgba(158, 158, 158, 0.25);
+}
+.input_time {
+    margin:3px 0 ;
+    width: 70px;
+    height: 15px;
+    padding: 2px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.input_time:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    outline: 0;
+    box-shadow: 0 0 0 5px rgba(158, 158, 158, 0.25);
+}
+.input_date {
+    margin:3px 0 ;
+    width: 110px;
+    height: 15px;
+    padding: 2px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.input_date:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    outline: 0;
+    box-shadow: 0 0 0 5px rgba(158, 158, 158, 0.25);
 }
 
+.label_input_big{
+    width: 100px;
+    text-align: left;
+    color:#191919;
+    margin:3px;
+    font-size: 20px;
+    font-weight: 200;
+}
 .label_input{
     width: 100px;
     text-align: left;
@@ -119,6 +207,23 @@ body{
     color: #62061b;
 }
 .button:hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    background: #ea3057;
+}
+.button_login_big {
+    width: 210px;
+    margin:3px 0 ;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    background: #be2644;
+    color: #e5e5e5;
+    text-decoration:none;
+
+}
+.button_login_big:hover {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     background: #ea3057;
 }
@@ -206,6 +311,12 @@ body{
 .label_user{
     font-size: 18px;
     color: #e5e5e5;
+}
+.div_buttons_yes_or_on{
+    text-align: center;
+}
+.td_center{
+    text-align: center;
 }
 
 

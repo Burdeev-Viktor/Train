@@ -49,13 +49,20 @@ public class Calculation {
         train.setDate(train.getDate().substring(8, 10) + "-" + train.getDate().substring(5, 7) + "-" + train.getDate().substring(0, 4));
     }
 
-    static public List<Train> sortByPrice(List<Train> trainList){
-        trainList.sort(new Comparator<Train>() {
+    static public List<Train> sortByPrice(List<Train> trainList) {
+        Collections.sort(trainList, new Comparator<Train>() {
             @Override
             public int compare(Train o1, Train o2) {
-                return o1.getPrice() - o2.getPrice();
+                return (int) (o1.getPrice() * 100 - o2.getPrice() * 100);
             }
+
         });
         return trainList;
+    }
+
+    public static float rounding(Float wallet) {
+
+        float scale = (float) Math.pow(10, 2);
+        return (float) (Math.ceil(wallet * scale) / scale);
     }
 }
