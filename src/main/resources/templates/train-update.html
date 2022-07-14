@@ -16,7 +16,7 @@
                 <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
                 <br>
 
-                <label class="label_user"> Баланс:<label th:text="${user.wallet}+ Br."></label></label>
+                <label class="label_user"> Баланс:<label th:text="${user.walletUser()}"></label></label>
                 <br>
                 <a class="link_hidden" href="/refill-balance">Пополнить</a>
                 <br>
@@ -78,7 +78,7 @@
                 <label class="label_input" for="price">Стоймость:</label>
             </td>
             <td>
-                <input class="input"  type="text" th:field = "*{price}" id="price" placeholder=""> Br.
+                <input class="input"  type="text" th:field = "*{price}" id="price" placeholder=""> руб.
             </td>
         </tr>
         <tr>

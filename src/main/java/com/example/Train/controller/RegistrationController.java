@@ -27,25 +27,25 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/registration")
-    public String registration(){
+    public String registration() {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Model model){
+    public String addUser(User user, Model model) {
         User userFromdb = userService.findUserByUsername(user.getUsername());
-        if(userFromdb!=null ){
-            model.addAttribute("massageUserIsExist","Такой пользователь существует!");
+        if (userFromdb != null) {
+            model.addAttribute("massageUserIsExist", "Такой пользователь существует!");
             return "registration";
         }
-        if(!Objects.equals(user.getPassword(), user.getConfPassword())){
-            model.addAttribute("massagePasswordsNotMatch","Пороли не совпадают");
+        if (!Objects.equals(user.getPassword(), user.getConfPassword())) {
+            model.addAttribute("massagePasswordsNotMatch", "Пороли не совпадают");
             return "registration";
         }
         user.setWallet(0.0f);
         userService.add(user);
-        user=userService.findUserByUsername(user.getUsername());
-        userRoleService.save(new User_Role(user.getId(),2));
+        user = userService.findUserByUsername(user.getUsername());
+        userRoleService.save(new User_Role(user.getId(), 2));
         return "redirect:/login";
     }
 }

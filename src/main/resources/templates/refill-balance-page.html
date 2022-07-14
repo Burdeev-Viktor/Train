@@ -17,7 +17,7 @@
             <div class="div_user">
                 <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
                 <br>
-                <label class="label_user"> Баланс:<label th:text="${user.wallet}+ Br."></label></label>
+                <label class="label_user"> Баланс:<label th:text="${user.walletUser()}"></label></label>
                 <br>
                 <a class="link_hidden" href="/refill-balance">Пополнить</a>
                 <br>
@@ -34,13 +34,13 @@
         <div th:case="*">
             <label class="label_input_big"> Имя:<label class="label_input_big" th:text="${user.username}"></label></label>
             <br>
-            <label class="label_input_big"> Баланс:<label class="label_input_big" th:text="${user.wallet}+ Br."></label></label>
+            <label class="label_input_big"> Баланс:<label class="label_input_big" th:text="${user.walletUser()}"></label></label>
             <br>
         </div>
     </div>
 <form action="#" th:action="@{/refill-balance}" th:object="${wallet}" method="post">
 
-            <label class="label_input_big"> Пополнить на:<input class="balance_input" type="text" th:field = "*{wallet}" id="wallet" placeholder="">Br.</label>
+            <label class="label_input_big"> Пополнить на:<input class="balance_input" type="text" th:field = "*{wallet}" id="wallet" placeholder=""> руб.</label>
             <br>
     <div class="div_buttons_yes_or_on">
         <input class="button" type="submit" value="Пополнить">

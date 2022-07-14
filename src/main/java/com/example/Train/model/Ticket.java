@@ -27,4 +27,7 @@ public class Ticket {
     private String date;
     @Column(name = "train")
     private Long idTrain;
+    public String priceColumTicket(){
+        return String.format("%.2f",price);
+    }
 }

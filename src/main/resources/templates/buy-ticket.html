@@ -15,7 +15,7 @@
             <div class="div_user">
                 <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
                 <br>
-                <label class="label_user"> Баланс:<label th:text="${user.wallet}+ Br."></label></label>
+                <label class="label_user"> Баланс:<label th:text="${user.walletUser()}"></label></label>
                 <br>
                 <a class="link_hidden" href="/refill-balance">Пополнить</a>
                 <br>
@@ -37,7 +37,7 @@
         <br>
         <label class="label_input_big">До:<label class="label_input_big" th:text="${train.end}"></label></label>
         <br>
-        <label class="label_input_big">Стоймость:<label class="label_input_big" th:text="${train.price%100}+ Br."></label></label>
+        <label class="label_input_big">Стоймость:<label class="label_input_big" th:text="${train.priceColum()}"></label></label>
         <br>
         <label class="label_input_big">Дата отправления:<label class="label_input_big" th:text="${train.getDate}"></label></label>
         <br>

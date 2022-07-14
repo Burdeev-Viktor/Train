@@ -42,15 +42,20 @@ public class Train {
     @Column(name = "day_of_week")
     private String date;
 
-    public boolean trainIsExists(){
-        return (this.start==null|| !Objects.equals(this.start, "")) &&
-                (this.end==null|| !Objects.equals(this.end, ""))  &&
-                (this.timeStart==null|| !Objects.equals(this.timeStart, "")) &&
-                (this.timeEnd==null|| !Objects.equals(this.timeEnd, "")) &&
-                (this.date==null|| !Objects.equals(this.date, ""));
+    public boolean trainIsExists() {
+        return (this.start == null || !Objects.equals(this.start, "")) &&
+                (this.end == null || !Objects.equals(this.end, "")) &&
+                (this.timeStart == null || !Objects.equals(this.timeStart, "")) &&
+                (this.timeEnd == null || !Objects.equals(this.timeEnd, "")) &&
+                (this.date == null || !Objects.equals(this.date, ""));
     }
-    public boolean dateIsExists(){
-        return (date!=null && !Objects.equals(date, ""));
+
+    public boolean dateIsExists() {
+        return (date != null && !Objects.equals(date, ""));
+    }
+
+    public String priceColum() {
+        return String.format("%.2f", price) + " руб.";
     }
 
 }

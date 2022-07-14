@@ -83,7 +83,7 @@
                 <td class="td_train" th:text="${train.timeEnd}"></td>
                 <td class="td_train" th:text="${train.timeOfTrack}"></td>
                 <td class="td_train" th:text="${train.date}"></td>
-                <td class="td_train" th:text="${train.price}+ Br."></td>
+                <td class="td_train" th:text="${train.priceColum()}"></td>
                 <div th:switch="${train.seat_all - train.seat_buy}">
                     <td class="not_buy"  th:case="0">Билетов нет</td>
                 </div>

@@ -2,6 +2,7 @@ package com.example.Train.model;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,8 +32,10 @@ public class User {
     @Transient
     private String confPassword;
 
-
     @Column(name = "wallet")
     private Float wallet;
 
+    public String walletUser() {
+        return String.format("%.2f", wallet) + " руб.";
+    }
 }

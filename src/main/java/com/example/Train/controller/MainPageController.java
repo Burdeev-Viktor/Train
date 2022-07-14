@@ -19,48 +19,37 @@ public class MainPageController {
     public MainPageController(TrainService trainService) {
         this.trainService = trainService;
     }
+
     @GetMapping("/")
-    public String hello (Model model, Train train){
+    public String hello(Model model, Train train) {
         trainList = trainService.getAll();
 
         Train trainSearch = new Train();
-        model.addAttribute("trainList",trainList);
-        model.addAttribute("train",trainSearch);
+        model.addAttribute("trainList", trainList);
+        model.addAttribute("train", trainSearch);
         return "main_page";
     }
-    @GetMapping ("/main-page")
-    public String helloPage(){
+
+    @GetMapping("/main-page")
+    public String helloPage() {
         return "redirect:/";
     }
+
     @PostMapping("/train-search-guest")
-    public String search(Train train, Model model){
-        if(train.getDate()!=null && !Objects.equals(train.getDate(), "")) {
+    public String search(Train train, Model model) {
+        if (train.getDate() != null && !Objects.equals(train.getDate(), "")) {
             train.setDate(train.getDate().substring(8, 10) + "-" + train.getDate().substring(5, 7) + "-" + train.getDate().substring(0, 4));
         }
-        trainList = searchByTrain(train);
-        model.addAttribute("trainList",trainList);
+        trainList = Calculation.sortByTrain(train, trainList);
+        model.addAttribute("trainList", trainList);
         return "main_page";
     }
-    private List<Train> searchByTrain(Train trainSearch){
-        List<Train> trainList = trainService.getAll();
-        List<Train> sortlist = new ArrayList<Train>();
-        for (Train train : trainList) {
-            if ((Objects.equals(train.getStart(), trainSearch.getStart())
-                    || Objects.equals(trainSearch.getStart(), "")) && (Objects.equals(train.getEnd(), trainSearch.getEnd())) && ((Objects.equals(train.getDate(), trainSearch.getDate()))
-                    || Objects.equals(trainSearch.getDate(), "")) || (Objects.equals(train.getStart(), trainSearch.getStart())
-                    || Objects.equals(trainSearch.getStart(), "")) && Objects.equals(trainSearch.getEnd(), "") && ((Objects.equals(train.getDate(), trainSearch.getDate()))
-                    || Objects.equals(trainSearch.getDate(), ""))) {
-                sortlist.add(train);
-            }
-        }
-        return sortlist;
-    }
-    @GetMapping   ("/sort-by-price-guest")
-    public String SortByPrice(Model model,Train train){
-        trainList= Calculation.sortByPrice(trainList);
 
-        model.addAttribute("trainList",trainList);
-        model.addAttribute("train",train);
+    @GetMapping("/sort-by-price-guest")
+    public String SortByPrice(Model model, Train train) {
+        trainList = Calculation.sortByPrice(trainList);
+        model.addAttribute("trainList", trainList);
+        model.addAttribute("train", train);
         return "main_page";
     }
 

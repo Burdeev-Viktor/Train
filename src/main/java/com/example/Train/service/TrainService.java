@@ -13,20 +13,22 @@ import java.util.List;
 @Component
 public class TrainService {
 
-    private final TrainRepository trainRepository ;
+    private final TrainRepository trainRepository;
 
     @Autowired
-    public TrainService(JpaRepository<Train,Long> trainRepository) {
+    public TrainService(JpaRepository<Train, Long> trainRepository) {
         this.trainRepository = (TrainRepository) trainRepository;
     }
 
 
-    public Train getTrain(Long id){
+    public Train getTrain(Long id) {
         return trainRepository.getById(id);
     }
-    public List<Train> getAll(){
+
+    public List<Train> getAll() {
         return trainRepository.findAll();
     }
+
     public Train saveTrain(Train train) {
         return trainRepository.save(train);
     }

@@ -19,7 +19,7 @@
                     <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
                     </br>
 
-                    <label class="label_user"> Баланс:<label th:text="${user.wallet}+ Br."></label></label>
+                    <label class="label_user"> Баланс:<label th:text="${user.walletUser()}"></label></label>
                     </br>
                     <a class="link_hidden" th:href="@{admin-page/refill-balance}">Пополнить</a>
                     </br>
@@ -101,7 +101,7 @@
                     <td class="td_train" th:text="${train.timeEnd}"></td>
                     <td class="td_train" th:text="${train.timeOfTrack}"></td>
                     <td class="td_train" th:text="${train.date}"></td>
-                    <td class="td_train" th:text="${train.price}+ Br."> </td>
+                    <td class="td_train" th:text="${train.priceColum()}"> </td>
 
                     <div th:switch="${train.seat_all - train.seat_buy}">
                         <td class="not_buy" th:case="0">Билетов нет</td>
