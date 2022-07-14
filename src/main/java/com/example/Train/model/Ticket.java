@@ -20,7 +20,7 @@ public class Ticket {
     @Column(name = "end")
     private String end;
     @Column(name = "price")
-    private int price;
+    private float price;
     @Column(name = "time_start")
     private String timeStart;
     @Column(name = "date")

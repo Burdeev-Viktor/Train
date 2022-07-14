@@ -2,7 +2,6 @@ package com.example.Train.service;
 
 import com.example.Train.model.Ticket;
 import com.example.Train.model.Train;
-import com.example.Train.model.User;
 import com.example.Train.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +22,7 @@ public class TicketService {
         ticket.setEnd(train.getEnd());
         ticket.setPrice(train.getPrice());
         ticket.setTimeStart(train.getTimeStart());
-        ticket.setDate(train.getDayOfWeek());
+        ticket.setDate(train.getDate());
         ticket.setIdTrain(train.getIdtrain());
         ticketRepository.save(ticket);
     }

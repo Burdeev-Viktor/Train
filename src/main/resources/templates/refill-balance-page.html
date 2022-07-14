@@ -2,25 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!--th:href="@{/css/style.css}"-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" >
     <title>Пополнение баланса</title>
 </head>
 <body>
-<div>
+<div class="container_center">
     <div th:switch="${user}">
         <h2 th:case="null">Ошибка входа</h2>
         <div th:case="*">
-            <label> Имя:<label th:text="*{user.username}"></label></label>
-            </br>
-            <label> Баланс:<label th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
-            </br>
+            <label class="label_input"> Имя:<label class="label_input" th:text="*{user.username}"></label></label>
+            <br>
+            <label class="label_input"> Баланс:<label class="label_input" th:text="${user.wallet}+ Br."></label></label>
+            <br>
         </div>
     </div>
+
 <form action="#" th:action="@{/refill-balance}" th:object="${wallet}" method="post">
 
-            <label> Пополнить на:<input type="number" th:field = "*{wallet}" id="wallet" placeholder=""></label>
-            </br>
-        <input type="submit" value="Пополнить">
+            <label class="label_input"> Пополнить на:<input class="balance-field_input" type="text" th:field = "*{wallet}" id="wallet" placeholder=""></label>
+            <br>
+        <input class="button" type="submit" value="Пополнить">
+    <a class="button" th:href="@{/trains}">Отмена</a>
 </form>
-
+</div>
 </body>
 </html>

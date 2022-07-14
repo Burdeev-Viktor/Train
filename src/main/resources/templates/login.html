@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      lang="">
+      lang="ru">
 <head>
-    <title>Spring Security Example </title>
+    <meta charset="UTF-8"><!--th:href="@{/css/style.css}"-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" >
+    <title>Вход в аккаунт</title>
+
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<a href="/registration">Зарегистрироваться </a>
+    <div class="container_center">
+
+        <form class="container_center" th:action="@{/login}" method="post">
+            <div class="massage_fail" th:if="${param.error}">
+                Неверное имя пользователя и пароль.
+            </div>
+                <label class="label_input"> Логин : </label>
+                </br>
+                <input class="text-field__input" type="text" name="username"/>
+
+
+                <label class="label_input"> Пороль:  </label>
+                </br>
+                <input class="text-field__input"  type="password" name="password"/>
+
+                <div class="div_button_center">
+                    <input class="button" type="submit" value="войти"/>
+                    <a class="link_hidden" href="/registration">Зарегистрироваться </a>
+                </div>
+
+        </form>
+
+    </div>
 </body>
 </html>

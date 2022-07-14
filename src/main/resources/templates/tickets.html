@@ -2,32 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!--th:href="@{/css/style.css}"-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" >
     <title>Билеты</title>
 </head>
 <body>
+<div>
+    <div th:switch="${user}">
+        <h2 th:case="null"><!--Ошибка входа--></h2>
+        <div th:case="*">
+            <div class="div_header">
+                <h2 class="logo">Поезда</h2>
+                <div class="div_user">
+                    <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
+                    <br>
+
+                    <label class="label_user"> Баланс:<label th:text="${user.wallet}+ Br."></label></label>
+                    <br>
+                    <a class="link_hidden" href="/refill-balance">Пополнить</a>
+                    <br>
+                    <form th:action="@{/logout}" method="post">
+                        <input class="button_login" type="submit" value="Выйти"/>
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
 <div th:switch="${list_ticket}">
     <h2 th:case="null">Куплиных билетов нет</h2>
     <div th:case="*">
-        <h2>Билеты</h2>
-        <table>
+
+        <table  class="table_train">
             <thead>
             <tr>
-                <th>Имя покупателя</th>
-                <th>Посадка</th>
-                <th>Высодка</th>
-                <th>Стоймость</th>
-                <th>Время отбытия</th>
-                <th>День отбытия</th>
+                <th class="th_train">№ билета</th>
+                <th class="th_train">Имя покупателя</th>
+                <th class="th_train">Посадка</th>
+                <th class="th_train">Высодка</th>
+                <th class="th_train">Стоймость</th>
+                <th class="th_train">Время отбытия</th>
+                <th class="th_train">День отбытия</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="ticked : ${list_ticket}">
-                <td th:text="${ticked.username}"></td>
-                <td th:text="${ticked.start}">
-                <td th:text="${ticked.end}"></td>
-                <td th:text="${ticked.price/100}+.+${ticked.price%100}+ Br."> </td>
-                <td th:text="${ticked.timeStart}"></td>
-                <td th:text="${ticked.date}"></td>
+                <td class="td_train" th:text="${ticked.idTicket}"></td>
+                <td class="td_train" th:text="${ticked.username}"></td>
+                <td class="td_train" th:text="${ticked.start}">
+                <td class="td_train" th:text="${ticked.end}"></td>
+                <td class="td_train" th:text="${ticked.price}+ Br."> </td>
+                <td class="td_train" th:text="${ticked.timeStart}"></td>
+                <td class="td_train" th:text="${ticked.date}"></td>
             </tr>
             </tbody>
         </table>

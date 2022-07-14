@@ -1,5 +1,6 @@
 package com.example.Train.controller;
 
+import com.example.Train.Calculation;
 import com.example.Train.model.Train;
 import com.example.Train.model.User;
 import com.example.Train.model.User_Role;
@@ -32,6 +33,7 @@ private TicketService ticketService;
 private UserService userService;
 private List<Train> trainList;
 private User user;
+private boolean sort=false;
 
 @Autowired
     public TrainController(TrainService trainService) {
@@ -40,41 +42,27 @@ private User user;
 
     @GetMapping   ("/sort-by-price")
     public String SortByPrice(Model model,Train train){
-        Collections.sort(trainList, new Comparator<Train>() {
-            @Override
-            public int compare(Train o1, Train o2) {
-                return o1.getPrice()- o2.getPrice();
-            }
-        });
-
-        model.addAttribute("trainList",trainList);
-        model.addAttribute("train",train);
+        if(train.dateIsExists()) {
+            Calculation.formatDate(train);
+        }
+        trainList=trainService.getAll();
+        if(sort){
+            Calculation.sortByPrice(trainList);
+        }
+        model.addAttribute("trainList",Calculation.sortByTrain(train,trainList));
         model.addAttribute("user",user);
         return "trains";
     }
     @PostMapping("/train-search")
     public String search(Train train, Model model){
-    if(train.getDayOfWeek()!=null && !Objects.equals(train.getDayOfWeek(), "")) {
-        train.setDayOfWeek(train.getDayOfWeek().substring(8, 10) + "-" + train.getDayOfWeek().substring(5, 7) + "-" + train.getDayOfWeek().substring(0, 4));
+    if(train.dateIsExists()) {
+        Calculation.formatDate(train);
     }
-        trainList = searchByTrain(train);
+        trainList=trainService.getAll();
+        trainList = Calculation.sortByTrain(train,trainList);
         model.addAttribute("trainList",trainList);
         model.addAttribute("user",user);
         return "trains";
-    }
-    private List<Train> searchByTrain(Train trainSearh){
-    trainList = trainService.getAll();
-        List<Train> sortlist = new ArrayList<Train>();
-        for (Train train : trainList) {
-            if ((Objects.equals(train.getStart(), trainSearh.getStart())
-                    || Objects.equals(trainSearh.getStart(), "")) && (Objects.equals(train.getEnd(), trainSearh.getEnd())) && ((Objects.equals(train.getDayOfWeek(), trainSearh.getDayOfWeek()))
-                    || Objects.equals(trainSearh.getDayOfWeek(), "")) || (Objects.equals(train.getStart(), trainSearh.getStart())
-                    || Objects.equals(trainSearh.getStart(), "")) && Objects.equals(trainSearh.getEnd(), "") && ((Objects.equals(train.getDayOfWeek(), trainSearh.getDayOfWeek()))
-                    || Objects.equals(trainSearh.getDayOfWeek(), ""))) {
-                sortlist.add(train);
-            }
-        }
-        return sortlist;
     }
     @GetMapping("/trains")
     public String findAll(@AuthenticationPrincipal UserDetails userDetails,Model model,Train train){
@@ -94,6 +82,7 @@ private User user;
     public String buyTrain( @PathVariable("id") Long id, Model model){
     Train train = trainService.getTrain(id);
     model.addAttribute("train",train);
+    model.addAttribute("user",user);
     return "buy-ticket";
     }
     @GetMapping("/buy-ticket/{id}")
@@ -107,10 +96,13 @@ private User user;
         train.setSeat_buy(train.getSeat_buy()+1);
         trainService.saveTrain(train);
         model.addAttribute("train",train);
+
         user.setWallet(user.getWallet()- train.getPrice());
+
         userService.save(user);
         return "redirect:/trains";
     } else {
+        model.addAttribute("user",user);
         model.addAttribute("train",train);
         model.addAttribute("notMoney","нехватает денег");
     }
@@ -128,7 +120,7 @@ private User user;
     }
     @PostMapping("/refill-balance")
     public String refillBalance(User wallet,Model model){
-        user.setWallet(user.getWallet()+wallet.getWallet());
+        user.setWallet(user.getWallet()+Calculation.rounding(wallet.getWallet()));
         userService.save(user);
         User_Role role = userRoleService.findByUser_Id(user.getId());
         if(role.getRole_id()==1){
@@ -138,9 +130,15 @@ private User user;
     }
 
     @GetMapping("/tickets")
-    public String ticketsForm(@AuthenticationPrincipal UserDetails user, Model model){
-        model.addAttribute("list_ticket",ticketService.findByUsername(user.getUsername()));
+    public String ticketsForm(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        model.addAttribute("list_ticket",ticketService.findByUsername(userDetails.getUsername()));
+        model.addAttribute("user",user);
     return "tickets";
+    }
+    @GetMapping("/reset")
+    public String resetForm(){
+        sort=false;
+        return "redirect:/trains";
     }
 
 }

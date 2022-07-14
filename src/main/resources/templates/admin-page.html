@@ -4,77 +4,121 @@
       xmlns:shiro=http://www.pollix.at/thymeleaf/shiro>
 <head>
     <meta charset="UTF-8">
+    <!--th:href="@{/css/style.css}"-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" >
     <title>Trains</title>
 </head>
 <body>
 <div>
     <div th:switch="${user}">
-        <h2 th:case="null">Ошибка входа</h2>
+        <h2 th:case="null"><!--Ошибка входа--></h2>
         <div th:case="*">
-            <label> Имя:<label th:text="*{user.username}"></label></label>
-            </br>
-            <label> Баланс:<label th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
-            <a href="/admin-page/refill-balance">Пополнить</a>
-            </br>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
-            </form>
+            <div class="div_header">
+                <h2 class="logo">Поезда</h2>
+                <div class="div_user">
+                    <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
+                    </br>
+
+                    <label class="label_user"> Баланс:<label th:text="${user.wallet}+ Br."></label></label>
+                    </br>
+                    <a class="link_hidden" href="/refill-balance">Пополнить</a>
+                    </br>
+                    <form th:action="@{/logout}" method="post">
+                        <input class="button_login" type="submit" value="Выйти"/>
+                    </form>
+                </div>
+
+            </div>
+
+
         </div>
     </div>
     <div th:switch="${trainList}">
         <h2 th:case="null">Поездов нет</h2>
         <div th:case="*">
-            <h2>Поезда</h2>
-            <form action="#" th:action="@{/admin-page/train-search}" th:object="${train}" method="post">
-                <label for = "start">Посадка</label>
-                <input type="text" th:field="*{start}" id ="start" placeholder="">
-                <br>
-                <label for = "end">Высодка</label>
-                <input type="text" th:field="*{end}" id ="end" placeholder="">
-                <br>
-                <label for="dayOfWeek">День отбытия</label>
-                <input type="date" th:field = "*{dayOfWeek}" id="dayOfWeek" placeholder="">
-                <br>
-                <input type="submit" value="Найти">
-                <a th:href="@{/admin-page}">Сброс</a>
+
+            <form  action="#" th:action="@{/admin-page/train-search}" th:object="${train}" method="post">
+                <table class="search_form">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <label class="label_input" for = "start">Посадка:</label>
+                        </td>
+                        <td>
+                            <input class="text-field__input" type="text" th:field="*{start}" id ="start" placeholder="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label_input" for = "end">Высодка:</label>
+                        </td>
+                        <td>
+                            <input class="text-field__input" type="text" th:field="*{end}" id ="end" placeholder="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label_input" for="dayOfWeek">День отбытия:</label>
+                        </td>
+                        <td>
+                            <input class="text-field__input" type="date" th:field = "*{date}" id="dayOfWeek" placeholder="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td class="td_center">
+                            <input class="button" type="submit" value="Найти">
+                            <a class="button" th:href="@{/admin-page/reset}">Сброс</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </form>
-            <a th:href="@{/admin-page/sort-by-price}">Сортировка по стоймости</a>
-            <table>
+                <div class="sort_prise_div">
+                    <a class="button" th:href="@{/admin-page/sort-by-price}">Сортировать по стоймости</a>
+                </div>
+            <table  class="table_train">
                 <thead>
                 <tr>
-                    <th>Посадка</th>
-                    <th>Высодка</th>
-                    <th>Осталось билетов</th>
-                    <th>Время отбытия</th>
-                    <th>Время прибытия</th>
-                    <th>Время в пути</th>
-                    <th>День недели</th>
-                    <th>Стоимость</th>
+                    <th  class="th_train">Посадка</th>
+                    <th class="th_train">Высодка</th>
+                    <th class="th_train">Осталось билетов</th>
+                    <th class="th_train">Время отбытия</th>
+                    <th class="th_train">Время прибытия</th>
+                    <th class="th_train">Время в пути</th>
+                    <th class="th_train">День недели</th>
+                    <th class="th_train">Стоимость</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="train : ${trainList}">
-                    <td th:text="${train.start}"></td>
-                    <td th:text="${train.end}"></td>
-                    <td th:text="${train.seat_all - train.seat_buy}"></td>
-                    <td th:text="${train.timeStart}"></td>
-                    <td th:text="${train.timeEnd}"></td>
-                    <td th:text="${train.timeOfTrack}"></td>
-                    <td th:text="${train.dayOfWeek}"></td>
-                    <td th:text="${train.price/100}+.+${train.price%100}+ Br."> </td>
+                    <td class="td_train" th:text="${train.start}"></td>
+                    <td class="td_train" th:text="${train.end}"></td>
+                    <td class="td_train" th:text="${train.seat_all - train.seat_buy}"></td>
+                    <td class="td_train" th:text="${train.timeStart}"></td>
+                    <td class="td_train" th:text="${train.timeEnd}"></td>
+                    <td class="td_train" th:text="${train.timeOfTrack}"></td>
+                    <td class="td_train" th:text="${train.date}"></td>
+                    <td class="td_train" th:text="${train.price}+ Br."> </td>
 
                     <div th:switch="${train.seat_all - train.seat_buy}">
-                        <td th:case="0">Билетов нет</td>
-                        <td th:case="*"><a th:href="@{/admin-page/train-buy/{id}(id=${train.getIdtrain()})}">Купить</a></td>
+                        <td class="not_buy" th:case="0">Билетов нет</td>
+                        <td th:case="*"><a class="button_buy" th:href="@{/admin-page/train-buy/{id}(id=${train.getIdtrain()})}">Купить</a></td>
                     </div>
-                    <td ><a th:href="@{/admin-page/train-delete/{id}(id=${train.getIdtrain()})}">Удалить</a></td>
-                    <td><a th:href="@{/admin-page/train-update/{id}(id=${train.getIdtrain()})}">Изменить</a></td>
+                    <td ><a class="button_buy" th:href="@{/admin-page/train-delete/{id}(id=${train.getIdtrain()})}">Удалить</a></td>
+                    <td><a  class="button_buy"th:href="@{/admin-page/train-update/{id}(id=${train.getIdtrain()})}">Изменить</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <a th:href="@{/admin-page/train-create}">Добавить поезд</a>
-        <a th:href="@{/admin-page/tickets}">Мои билеты</a>
+    </div >
+    <div class="div_ticket">
+        <a  class="button" th:href="@{/admin-page/train-create}">Добавить поезд</a>
+        <a  class="button" th:href="@{/admin-page/tickets}">Мои билеты</a>
+    </div>
+
     </div>
 </body>
 </html>

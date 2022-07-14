@@ -42,7 +42,7 @@ public class RegistrationController {
             model.addAttribute("massagePasswordsNotMatch","Пороли не совпадают");
             return "registration";
         }
-        user.setWallet(0L);
+        user.setWallet(0.0f);
         userService.add(user);
         user=userService.findUserByUsername(user.getUsername());
         userRoleService.save(new User_Role(user.getId(),2));

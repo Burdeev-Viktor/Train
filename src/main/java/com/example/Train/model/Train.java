@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -27,7 +28,7 @@ public class Train {
     private int seat_all;
 
     @Column(name = "price")
-    private int price;
+    private float price;
 
     @Column(name = "time_start")
     private String timeStart;
@@ -39,6 +40,17 @@ public class Train {
     private String timeOfTrack;
 
     @Column(name = "day_of_week")
-    private String dayOfWeek;
+    private String date;
+
+    public boolean trainIsExists(){
+        return (this.start==null|| !Objects.equals(this.start, "")) &&
+                (this.end==null|| !Objects.equals(this.end, ""))  &&
+                (this.timeStart==null|| !Objects.equals(this.timeStart, "")) &&
+                (this.timeEnd==null|| !Objects.equals(this.timeEnd, "")) &&
+                (this.date==null|| !Objects.equals(this.date, ""));
+    }
+    public boolean dateIsExists(){
+        return (date!=null && !Objects.equals(date, ""));
+    }
 
 }

@@ -5,6 +5,9 @@
     <title>Create train</title>
 </head>
 <body>
+<div th:if="${massageFilledAll}">
+    Заполните все поля
+</div>
 <form action="#" th:action="@{/admin-page/train-create}" th:object="${train}" method="post">
     <label for = "start">Посадка</label>
     <input type="text" th:field="*{start}" id ="start" placeholder="">
@@ -19,7 +22,7 @@
     <input type="number" th:field="*{seat_all}" id ="seat_all" placeholder="">
     <br>
     <label for = "price">Стоймость</label>
-    <input type="number" th:field="*{price}" id ="price" placeholder="">
+    <input type="text" th:field="*{price}" id ="price" placeholder="">
     <br>
     <label for="timeStart">Время отбытия</label>
     <input type="time" th:field = "*{timeStart}" id="timeStart" placeholder="">
@@ -27,10 +30,10 @@
     <label for="timeEnd">Время прибытия</label>
     <input type="time" th:field = "*{timeEnd}" id="timeEnd" placeholder="">
     <br>
-    <label for="dayOfWeek">День отбытия</label>
-    <input type="date" th:field = "*{dayOfWeek}" id="dayOfWeek" placeholder="">
+    <label for="date">День отбытия</label>
+    <input type="date" th:field = "*{date}" id="date" placeholder="">
     <br>
-    <input type="submit" value="Добавить">
+    <input type="submit" value="Создать">
 
 </form>
 </body>
