@@ -34,8 +34,8 @@ public class MainPageController {
     }
     @PostMapping("/train-search-guest")
     public String search(Train train, Model model){
-        if(train.getDayOfWeek()!=null && !Objects.equals(train.getDayOfWeek(), "")) {
-            train.setDayOfWeek(train.getDayOfWeek().substring(8, 10) + "-" + train.getDayOfWeek().substring(5, 7) + "-" + train.getDayOfWeek().substring(0, 4));
+        if(train.getDate()!=null && !Objects.equals(train.getDate(), "")) {
+            train.setDate(train.getDate().substring(8, 10) + "-" + train.getDate().substring(5, 7) + "-" + train.getDate().substring(0, 4));
         }
         trainList = searchByTrain(train);
         model.addAttribute("trainList",trainList);
@@ -46,10 +46,10 @@ public class MainPageController {
         List<Train> sortlist = new ArrayList<Train>();
         for (Train train : trainList) {
             if ((Objects.equals(train.getStart(), trainSearch.getStart())
-                    || Objects.equals(trainSearch.getStart(), "")) && (Objects.equals(train.getEnd(), trainSearch.getEnd())) && ((Objects.equals(train.getDayOfWeek(), trainSearch.getDayOfWeek()))
-                    || Objects.equals(trainSearch.getDayOfWeek(), "")) || (Objects.equals(train.getStart(), trainSearch.getStart())
-                    || Objects.equals(trainSearch.getStart(), "")) && Objects.equals(trainSearch.getEnd(), "") && ((Objects.equals(train.getDayOfWeek(), trainSearch.getDayOfWeek()))
-                    || Objects.equals(trainSearch.getDayOfWeek(), ""))) {
+                    || Objects.equals(trainSearch.getStart(), "")) && (Objects.equals(train.getEnd(), trainSearch.getEnd())) && ((Objects.equals(train.getDate(), trainSearch.getDate()))
+                    || Objects.equals(trainSearch.getDate(), "")) || (Objects.equals(train.getStart(), trainSearch.getStart())
+                    || Objects.equals(trainSearch.getStart(), "")) && Objects.equals(trainSearch.getEnd(), "") && ((Objects.equals(train.getDate(), trainSearch.getDate()))
+                    || Objects.equals(trainSearch.getDate(), ""))) {
                 sortlist.add(train);
             }
         }

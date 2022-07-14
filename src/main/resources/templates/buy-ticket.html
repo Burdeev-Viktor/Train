@@ -2,28 +2,55 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <!--th:href="@{/css/style.css}"-->
+    <link th:href="@{/css/style.css}" rel="stylesheet" >
     <title>Покупка билета</title>
 </head>
 <body>
-<div th:if="${notMoney}">
-    У вас не хватает денег
-</div>
+
+<div th:switch="${user}">
+    <h2 th:case="null"><!--Ошибка входа--></h2>
+    <div th:case="*">
+        <div class="div_header">
+            <h2 class="logo">Поезда</h2>
+            <div class="div_user">
+                <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
+                </br>
+
+                <label class="label_user"> Баланс:<label th:text="${user.wallet/100}+.+${user.wallet%100}+ Br."></label></label>
+                </br>
+                <a class="link_hidden" href="/refill-balance">Пополнить</a>
+                </br>
+                <form th:action="@{/logout}" method="post">
+                    <input class="button_login" type="submit" value="Выйти"/>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
 <div th:switch="${train}">
     <h2 th:case="null">Ошибка входа</h2>
-    <div th:case="*">
-<label>№ Билета:</label>
-</br>
-<label>От:<label th:text="${train.start}"></label></label>
-</br>
-<label>До:<label th:text="${train.end}"></label></label>
-</br>
-<label>Стоймость:<label th:text="${train.price/100}+.+${train.price%100}+ Br."></label></label>
-</br>
-<label>Дата отправления:<label th:text="${train.dayOfWeek}"></label></label>
-</br>
-<label>Время отпровления:<label th:text="${train.timeStart}"></label></label>
-</br>
-<a th:href="@{/buy-ticket/{id}(id=${train.getIdtrain()})}" >Купить</a>
+    <div class="container_center_buy" th:case="*">
+        <div class="massage_fail" th:if="${notMoney}">
+            У вас не хватает денег
+        </div>
+        <label class="label_input">№ Билета:</label>
+        <br>
+        <label class="label_input">От:<label class="label_input" th:text="${train.start}"></label></label>
+        <br>
+        <label class="label_input">До:<label class="label_input" th:text="${train.end}"></label></label>
+        <br>
+        <label class="label_input">Стоймость:<label class="label_input" th:text="${train.price/100}+.+${train.price%100}+ Br."></label></label>
+        <br>
+        <label class="label_input">Дата отправления:<label class="label_input" th:text="${train.getDate}"></label></label>
+        <br>
+        <label class="label_input">Время отпровления:<label class="label_input" th:text="${train.timeStart}"></label></label>
+        <br>
+        <br>
+        <a class="button" th:href="@{/buy-ticket/{id}(id=${train.getIdtrain()})}" >Купить</a>
+        <a class="button" th:href="@{/trains}">отмена</a>
     </div>
 </body>
 </html>
