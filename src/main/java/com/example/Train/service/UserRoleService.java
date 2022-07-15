@@ -22,7 +22,7 @@ public class UserRoleService {
     public User_Role findByUser_Id(Long id) {
         List<User_Role> roles = userRoleRepository.findAll();
         for (User_Role role : roles) {
-            if (role.getUser_id() == id) {
+            if (role.getUserId() == id) {
                 return role;
             }
         }

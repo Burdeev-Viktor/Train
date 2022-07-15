@@ -9,9 +9,9 @@ import javax.persistence.*;
 @Component
 public class User_Role {
     @Column(name = "user_id")
-    Long user_id;
+    Long userId;
     @Column(name = "role_id")
-    int role_id;
+    int roleId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,16 +28,16 @@ public class User_Role {
         return id;
     }
 
-    public Long getUser_id() {
-        return user_id;
-    }
-
-    public int getRole_id() {
-        return role_id;
-    }
-
     public User_Role(Long user_id, int role_id) {
-        this.user_id = user_id;
-        this.role_id = role_id;
+        this.userId = user_id;
+        this.roleId = role_id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public int getRoleId() {
+        return roleId;
     }
 }

@@ -37,7 +37,7 @@
     <h2 class="massage_fail" th:case="null">Поездов нет</h2>
     <div th:case="*">
 
-        <form  action="#" th:action="@{/train-search}" th:object="${train}" method="post">
+        <form  action="#" th:action="@{/train-search}" th:object="${trainSearch}" method="post">
             <table class="search_form">
                 <tbody>
                 <tr>
@@ -116,6 +116,7 @@
     <div class="div_ticket">
         <a  class="button" th:href="@{tickets}">Мои билеты</a>
     </div>
+</div>
 </div>
 
 </body>

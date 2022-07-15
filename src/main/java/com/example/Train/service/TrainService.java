@@ -1,5 +1,6 @@
 package com.example.Train.service;
 
+import com.example.Train.Calculation;
 import com.example.Train.model.Train;
 import com.example.Train.repository.TrainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,17 @@ public class TrainService {
         return trainRepository.findAll();
     }
 
-    public Train saveTrain(Train train) {
-        return trainRepository.save(train);
+    public void saveTrain(Train train) {
+        trainRepository.save(train);
     }
 
     public void deleteById(Long id) {
         trainRepository.deleteById(id);
+    }
+
+    public void saveNewTrain(Train train) {
+        Calculation.timeToTrack(train);
+        Calculation.formatDate(train);
+        saveTrain(train);
     }
 }

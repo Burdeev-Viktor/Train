@@ -3,8 +3,9 @@ package com.example.Train.service;
 import com.example.Train.model.MyUserDetails;
 import com.example.Train.model.User;
 import com.example.Train.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
