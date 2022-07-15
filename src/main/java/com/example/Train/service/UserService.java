@@ -87,6 +87,19 @@ public class UserService {
         userRoleService.save(new User_Role(user.getId(), roleService.getRoleIdByNameRole("USER")));
         return true;
     }
+    public void createAdmin(){
+        User admin = findUserByUsername("admin");
+        if (admin == null) {
+            admin=new User();
+            admin.setUsername("admin");
+            admin.setPassword("admin");
+            admin.setWallet(0.0f);
+            add(admin);
+            admin = findUserByUsername(admin.getUsername());
+            userRoleService.save(new User_Role(admin.getId(), roleService.getRoleIdByNameRole("ADMIN")));
+        }
+
+    }
 
 
 }

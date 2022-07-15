@@ -3,6 +3,7 @@ package com.example.Train.controller;
 import com.example.Train.Calculation;
 import com.example.Train.model.Train;
 import com.example.Train.service.TrainService;
+import com.example.Train.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,17 +17,20 @@ public class MainPageController {
     private final TrainService trainService;
     private List<Train> trainList;
     private boolean sort = false;
+    private UserService userService;
 
-    public MainPageController(TrainService trainService) {
+    public MainPageController(TrainService trainService, UserService userService) {
         this.trainService = trainService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
     public String hello(Model model, Train train) {
+        userService.createAdmin();
         sort = false;
         trainList = trainService.getAll();
         model.addAttribute("trainList", trainList);
-        model.addAttribute("train", new Train());
+        model.addAttribute("train", train);
         return "main_page";
     }
 
