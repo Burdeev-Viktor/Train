@@ -26,7 +26,7 @@ body{
     transform: translate(0,-45%);
 }
 .container_center_balance{
-    width: 260px;
+    width: 280px;
     position: absolute;
     left: 0;
     right: 0;
@@ -35,13 +35,14 @@ body{
     transform: translate(0,-45%);
 }
 .container_center_buy{
-    width: 310px;
+    width: 300px;
     position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
     top: 45%;
 }
+
 .container_center_train{
     width: 350px;
     position: absolute;
