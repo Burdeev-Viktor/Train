@@ -17,12 +17,11 @@
                 <h2 class="logo">Поезда</h2>
                 <div class="div_user">
                     <label class="label_user"> Имя:<label th:text="*{user.username}"></label></label>
-                    </br>
-
+                    <br>
                     <label class="label_user"> Баланс:<label th:text="${user.walletUser()}"></label></label>
-                    </br>
+                    <br>
                     <a class="link_hidden" th:href="@{admin-page/refill-balance}">Пополнить</a>
-                    </br>
+                    <br>
                     <form th:action="@{/logout}" method="post">
                         <input class="button_login" type="submit" value="Выйти"/>
                     </form>

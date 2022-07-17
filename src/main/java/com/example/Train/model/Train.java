@@ -12,7 +12,7 @@ import java.util.Objects;
 @Component
 public class Train {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idtrain;
 
     @Column(name = "start")

@@ -2,9 +2,9 @@ package com.example.Train.repository;
 
 import com.example.Train.model.Train;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public interface TrainRepository extends JpaRepository<Train, Long> {
 
 }

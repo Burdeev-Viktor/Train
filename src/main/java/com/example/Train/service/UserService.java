@@ -17,7 +17,6 @@ public class UserService {
     private final UserRoleService userRoleService;
     private final TicketService ticketService;
     private final TrainService trainService;
-
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleService roleService;
