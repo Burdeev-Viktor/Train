@@ -71,7 +71,6 @@ public class Calculation {
     }
 
     public static float rounding(Float wallet) {
-
         float scale = (float) Math.pow(10, 2);
         return (float) (Math.ceil(wallet * scale) / scale);
     }

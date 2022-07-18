@@ -53,13 +53,14 @@
                 <td class="td_train" th:text="${ticked.username}"></td>
                 <td class="td_train" th:text="${ticked.start}">
                 <td class="td_train" th:text="${ticked.end}"></td>
-                <td class="td_train" th:text="${ticked.price}+ руб."> </td>
+                <td class="td_train" th:text="${ticked.priceColumTicket()}"> </td>
                 <td class="td_train" th:text="${ticked.timeStart}"></td>
                 <td class="td_train" th:text="${ticked.date}"></td>
             </tr>
             </tbody>
         </table>
     </div>
+</div>
 
 </div>
 </body>

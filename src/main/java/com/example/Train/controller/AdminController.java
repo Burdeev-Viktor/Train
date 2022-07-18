@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,7 +27,7 @@ public class AdminController {
     private final TicketService ticketService;
 
     private final UserService userService;
-    private List<Train> trainList;
+    private List<Train> trainList= new ArrayList<>();
     private boolean sort = false;
 
     public AdminController(TrainService trainService, TicketService ticketService, UserService userService) {

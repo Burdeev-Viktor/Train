@@ -9,15 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class MainPageController {
 
     private final TrainService trainService;
-    private List<Train> trainList;
+    private List<Train> trainList=new ArrayList<>();
     private boolean sort = false;
-    private UserService userService;
+    private final UserService userService;
 
     public MainPageController(TrainService trainService, UserService userService) {
         this.trainService = trainService;

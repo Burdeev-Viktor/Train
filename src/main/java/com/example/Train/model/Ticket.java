@@ -28,6 +28,6 @@ public class Ticket {
     @Column(name = "train")
     private Long idTrain;
     public String priceColumTicket(){
-        return String.format("%.2f",price);
+        return String.format("%.2f",price)+" руб.";
     }
 }

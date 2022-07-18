@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,7 +22,7 @@ public class TrainController {
     private final TrainService trainService;
     private final TicketService ticketService;
     private final UserService userService;
-    private List<Train> trainList;
+    private List<Train> trainList=new ArrayList<>();
     private boolean sort = false;
 
     @Autowired
